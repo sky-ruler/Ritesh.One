@@ -61,14 +61,14 @@ body {
 .glass-interactive::before { /* Dynamic Sheen Effect */
     content: '';
     position: absolute;
-    top: -50%; left: -100%;
+    top: -50%; left: -150%;
     width: 75%; height: 200%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     transition: left 0.8s var(--ease-out);
     transform: rotate(25deg);
 }
-.glass-interactive:hover::before { left: 125%; }
-.glass-interactive:focus-visible { box-shadow: 0 0 0 3px var(--accent-color); }
+.glass-interactive:hover::before { left: 150%; }
+.glass-interactive:focus-visible { box-shadow: 0 0 0 3px var(--accent-color); outline: none; }
 
 /* --- Header --- */
 .site-header { position: sticky; top: 1rem; margin: 0 1rem 1rem 1rem; border-radius: var(--radius-m); z-index: 100; }
@@ -76,7 +76,7 @@ body {
 .logo { font-size: 1.25rem; font-weight: 700; text-decoration: none; color: var(--text-primary); }
 .main-nav { display: flex; gap: 0.5rem; }
 .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; padding: 0.75rem; border-radius: var(--radius-s); }
-.nav-link:hover { color: var(--text-primary); }
+.nav-link:hover, .nav-link:focus-visible { color: var(--text-primary); }
 .header-right { display: flex; align-items: center; gap: 1rem; }
 .resume-button {
     background-color: var(--text-primary); color: var(--bg-color);
@@ -95,7 +95,7 @@ body {
 /* --- Hero & General Sections --- */
 main { padding: 0 1rem; }
 .hero-section { min-height: 80vh; display: flex; align-items: center; text-align: center; }
-.hero-heading { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.04em; margin: 0; background: linear-gradient(180deg, var(--text-primary), var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-heading { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.04em; margin: 0; background: linear-gradient(180deg, var(--text-primary), var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; }
 .hero-subtitle { font-size: 1.25rem; color: var(--text-secondary); margin: 1.5rem auto 2.5rem; max-width: 650px; }
 .hero-cta .cta-button {
     background-color: var(--accent-color); color: white;
@@ -158,10 +158,16 @@ main { padding: 0 1rem; }
 .footer-right a { padding: 0.75rem; border-radius: var(--radius-s); color: var(--text-secondary); text-decoration: none; font-weight: 500; }
 .footer-copyright { text-align: center; padding-top: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-secondary); font-size: 0.9rem; }
 
-/* --- GSAP Animation Initial States --- */
-[data-anim] { opacity: 0; will-change: transform, opacity; }
-[data-anim="fade-up"] { transform: translateY(30px) scale(0.98) rotate(-1deg); }
-[data-anim="fade-down"] { transform: translateY(-30px); }
+/* --- Animation Initial States --- */
+[data-anim] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+[data-anim].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 /* ==========================================================================
    Responsive Design - Mobile & Tablet Styles
@@ -174,17 +180,15 @@ main { padding: 0 1rem; }
 .hamburger-inner { display: block; top: 50%; margin-top: -1px; }
 .hamburger-inner::before, .hamburger-inner::after { content: ''; display: block; }
 .hamburger-inner::before { top: -10px; } .hamburger-inner::after { bottom: -10px; }
-.mobile-nav-open .hamburger-inner { transform: rotate(45deg); }
-.mobile-nav-open .hamburger-inner::before { top: 0; opacity: 0; }
-.mobile-nav-open .hamburger-inner::after { bottom: 0; transform: rotate(-90deg); }
+body.mobile-nav-open .hamburger-inner { transform: rotate(45deg); }
+body.mobile-nav-open .hamburger-inner::before { top: 0; opacity: 0; }
+body.mobile-nav-open .hamburger-inner::after { bottom: 0; transform: rotate(-90deg); }
 .mobile-nav-menu { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--glass-bg); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px); z-index: 999; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transform: scale(0.95); transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out); pointer-events: none; }
-.mobile-nav-open .mobile-nav-menu { opacity: 1; transform: scale(1); pointer-events: auto; }
+body.mobile-nav-open .mobile-nav-menu { opacity: 1; transform: scale(1); pointer-events: auto; }
 .mobile-nav-menu nav { display: flex; flex-direction: column; text-align: center; gap: 1.5rem; }
-.mobile-nav-link { font-size: 2rem; font-weight: 600; color: var(--text-secondary); text-decoration: none; padding: 0.5rem; opacity: 0; transform: translateY(20px); }
+.mobile-nav-link { font-size: 2rem; font-weight: 600; color: var(--text-secondary); text-decoration: none; padding: 0.5rem; }
 .mobile-nav-link:hover { color: var(--text-primary); }
-.mobile-resume-link { font-size: 1.25rem; font-weight: 600; color: var(--bg-color); background-color: var(--text-primary); text-decoration: none; padding: 1rem 2rem; border-radius: var(--radius-m); margin-top: 2rem; opacity: 0; transform: translateY(20px); }
-.mobile-nav-open .mobile-nav-link, .mobile-nav-open .mobile-resume-link { opacity: 1; transform: translateY(0); transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out); }
-.mobile-nav-open .mobile-nav-link:nth-child(1) { transition-delay: 0.2s; } .mobile-nav-open .mobile-nav-link:nth-child(2) { transition-delay: 0.25s; } .mobile-nav-open .mobile-nav-link:nth-child(3) { transition-delay: 0.3s; } .mobile-nav-open .mobile-nav-link:nth-child(4) { transition-delay: 0.35s; } .mobile-nav-open .mobile-resume-link { transition-delay: 0.4s; }
+.mobile-resume-link { font-size: 1.25rem; font-weight: 600; color: var(--bg-color); background-color: var(--text-primary); text-decoration: none; padding: 1rem 2rem; border-radius: var(--radius-m); margin-top: 2rem; }
 
 /* Tablet Breakpoint */
 @media (max-width: 1024px) {
