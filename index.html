@@ -20,18 +20,34 @@
     <header class="site-header glass-pane" data-anim="fade-down">
         <div class="container nav-container">
             <a href="#" class="logo" aria-label="Homepage">R.K.</a>
+            
             <nav class="main-nav" aria-label="Primary Navigation">
                 <a href="#about" class="nav-link glass-interactive">About</a>
                 <a href="#projects" class="nav-link glass-interactive">Work</a>
                 <a href="#experience" class="nav-link glass-interactive">Experience</a>
             </nav>
+            
             <div class="header-right">
                 <a href="/Ritesh-Kumar-Software-Engineer-Resume.pdf" target="_blank" class="resume-button glass-interactive">Resume</a>
                 <label class="theme-switch glass-interactive" for="theme-toggle" title="Toggle color scheme" aria-label="Toggle color scheme">
                     <input type="checkbox" id="theme-toggle" />
                     <span class="slider"></span>
                 </label>
+                <button class="mobile-nav-toggle glass-interactive" aria-controls="mobile-nav-menu" aria-expanded="false">
+                    <span class="sr-only">Menu</span>
+                    <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+                </button>
             </div>
+        </div>
+        
+        <div class="mobile-nav-menu" id="mobile-nav-menu">
+            <nav>
+                <a href="#about" class="mobile-nav-link">About</a>
+                <a href="#projects" class="mobile-nav-link">Work</a>
+                <a href="#experience" class="mobile-nav-link">Experience</a>
+                <a href="#contact" class="mobile-nav-link">Contact</a>
+                <a href="/Ritesh-Kumar-Software-Engineer-Resume.pdf" target="_blank" class="mobile-resume-link">View Resume</a>
+            </nav>
         </div>
     </header>
 
@@ -46,7 +62,7 @@
             </div>
         </section>
 
-        <section class="skills-ticker" aria-label="Technology Skills">
+        <section class="skills-ticker" aria-label="Technology Skills" data-anim="fade-up" data-delay="0.2">
              <div class="ticker-track">
                 <span>React</span><i class="fa-solid fa-star-of-life"></i><span>Node.js</span><i class="fa-solid fa-star-of-life"></i><span>JavaScript (ES6+)</span><i class="fa-solid fa-star-of-life"></i><span>CSS3</span><i class="fa-solid fa-star-of-life"></i><span>Figma</span><i class="fa-solid fa-star-of-life"></i><span>Java</span><i class="fa-solid fa-star-of-life"></i><span>SQL</span><i class="fa-solid fa-star-of-life"></i>
                 <span>React</span><i class="fa-solid fa-star-of-life"></i><span>Node.js</span><i class="fa-solid fa-star-of-life"></i><span>JavaScript (ES6+)</span><i class="fa-solid fa-star-of-life"></i><span>CSS3</span><i class="fa-solid fa-star-of-life"></i><span>Figma</span><i class="fa-solid fa-star-of-life"></i><span>Java</span><i class="fa-solid fa-star-of-life"></i><span>SQL</span><i class="fa-solid fa-star-of-life"></i>
@@ -75,38 +91,21 @@
                     <h2 class="section-title">Selected Case Studies</h2>
                 </div>
                 <div class="projects-grid">
-                    <div class="project-card glass-pane" data-anim="fade-up">
-                        <div class="project-content">
-                            <h3>E-Cart Pro</h3>
-                            <p>A full-stack e-commerce platform built for performance and scalability, featuring a complete user and admin workflow.</p>
-                            <div class="project-tags"><span>React</span><span>Node.js</span><span>MongoDB</span></div>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://rk-codes-ecart.github.io" target="_blank" class="project-link glass-interactive">Live Demo <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                            <a href="https://github.com/rk-codes/ecart-pro" target="_blank" class="project-link glass-interactive">View Code <i class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
-                    <div class="project-card glass-pane" data-anim="fade-up" data-delay="0.1">
-                        <div class="project-content">
-                            <h3>ConnectSphere</h3>
-                            <p>A real-time chat application using WebSockets, supporting multiple rooms and instant message delivery.</p>
-                            <div class="project-tags"><span>React</span><span>WebSockets</span><span>Express</span></div>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://rk-codes-connect.github.io" target="_blank" class="project-link glass-interactive">Live Demo <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                            <a href="https://github.com/rk-codes/connectsphere" target="_blank" class="project-link glass-interactive">View Code <i class="fa-brands fa-github"></i></a>
-                        </div>
-                    </div>
+                    <a href="https://rk-codes-ecart.github.io" target="_blank" class="project-card glass-pane glass-interactive" data-anim="fade-up">
+                        <div class="project-content"><h3>E-Cart Pro</h3><p>A full-stack e-commerce platform built for performance and scalability.</p></div>
+                        <div class="project-tags"><span>React</span><span>Node.js</span><span>MongoDB</span></div>
+                    </a>
+                    <a href="https://rk-codes-connect.github.io" target="_blank" class="project-card glass-pane glass-interactive" data-anim="fade-up" data-delay="0.1">
+                        <div class="project-content"><h3>ConnectSphere</h3><p>A real-time chat application using WebSockets for instant message delivery.</p></div>
+                        <div class="project-tags"><span>React</span><span>WebSockets</span><span>Express</span></div>
+                    </a>
                 </div>
             </div>
         </section>
 
         <section id="experience" class="content-section">
             <div class="container" data-anim="fade-up">
-                 <div class="section-header">
-                    <p class="section-intro">CAREER & EDUCATION</p>
-                    <h2 class="section-title">My Journey So Far</h2>
-                </div>
+                 <div class="section-header"><p class="section-intro">CAREER & EDUCATION</p><h2 class="section-title">My Journey So Far</h2></div>
                 <div class="timeline">
                     <div class="timeline-item"><div class="timeline-content"><h3>B.Tech, Computer Science & Engineering</h3><p>ITER, Siksha 'O' Anusandhan, Odisha</p></div><div class="timeline-year">2023 — Present</div></div>
                     <div class="timeline-item"><div class="timeline-content"><h3>Software Engineer Intern (Planned)</h3><p>An innovative tech company building user-centric products.</p></div><div class="timeline-year">Summer 2026</div></div>
@@ -117,10 +116,7 @@
         
         <section id="testimonials" class="content-section">
             <div class="container" data-anim="fade-up">
-                 <div class="section-header">
-                    <p class="section-intro">SOCIAL PROOF</p>
-                    <h2 class="section-title">What People Say</h2>
-                </div>
+                 <div class="section-header"><p class="section-intro">SOCIAL PROOF</p><h2 class="section-title">What People Say</h2></div>
                 <div class="testimonial-card glass-pane">
                     <p class="testimonial-quote">"Ritesh's dedication to quality and his keen eye for detail are exceptional. He consistently delivers well-architected solutions and is a true asset to any team."</p>
                     <div class="testimonial-author">
@@ -133,18 +129,15 @@
 
         <section id="writings" class="content-section">
             <div class="container">
-                <div class="section-header" data-anim="fade-up">
-                    <p class="section-intro">WRITINGS</p>
-                    <h2 class="section-title">Sharing Knowledge & Ideas</h2>
-                </div>
+                <div class="section-header" data-anim="fade-up"><p class="section-intro">WRITINGS</p><h2 class="section-title">Sharing Knowledge & Ideas</h2></div>
                 <div class="projects-grid">
-                    <a href="https://medium.com/@rk_codes/demystifying-react-hooks" target="_blank" class="project-card glass-pane" data-anim="fade-up">
+                    <a href="https://medium.com/@rk_codes/demystifying-react-hooks" target="_blank" class="project-card glass-pane glass-interactive" data-anim="fade-up">
                         <div class="project-content"><h3>Demystifying React Hooks</h3><p>A deep dive into the fundamentals of React Hooks and state management.</p></div>
-                        <div class="project-links"><span class="project-link glass-interactive">Read on Medium <i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
+                        <div class="project-links"><span class="project-link">Read on Medium <i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
                     </a>
-                    <a href="https://dev.to/rk_codes/building-accessible-components" target="_blank" class="project-card glass-pane" data-anim="fade-up" data-delay="0.1">
+                    <a href="https://dev.to/rk_codes/building-accessible-components" target="_blank" class="project-card glass-pane glass-interactive" data-anim="fade-up" data-delay="0.1">
                         <div class="project-content"><h3>A Guide to Building Accessible Web Components</h3><p>Practical tips and techniques for creating inclusive UI for everyone.</p></div>
-                        <div class="project-links"><span class="project-link glass-interactive">Read on DEV.to <i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
+                        <div class="project-links"><span class="project-link">Read on DEV.to <i class="fa-solid fa-arrow-up-right-from-square"></i></span></div>
                     </a>
                 </div>
             </div>

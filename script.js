@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. THEME MANAGEMENT ---
     const themeToggle = document.getElementById('theme-toggle');
-    // Set default theme to dark if no preference is saved
+    // Default to dark mode if no preference is saved
     const currentTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', currentTheme);
     if (currentTheme === 'light') {
@@ -15,50 +15,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 2. GSAP SCROLL-TRIGGERED ANIMATIONS ---
-    // The core of the site's stable, fluid motion.
     gsap.registerPlugin(ScrollTrigger);
     
     const animatedElements = gsap.utils.toArray('[data-anim]');
     
     animatedElements.forEach(el => {
         const delay = parseFloat(el.dataset.delay) || 0;
-        
         let animationProps = {
             opacity: 1,
             y: 0,
             scale: 1,
+            rotate: 0,
             delay: delay,
             duration: 1,
             ease: 'power4.out',
             scrollTrigger: {
                 trigger: el,
                 start: 'top 90%',
-                // This is the permanent bug fix: plays once, reverses gracefully.
                 toggleActions: 'play none none reverse',
             }
         };
-
-        // Initialize starting state based on animation type
         if (el.dataset.anim === 'fade-down') {
             gsap.set(el, { opacity: 0, y: -30 });
-        } else { // Default to fade-up
-            gsap.set(el, { opacity: 0, y: 30, scale: 0.98 });
+        } else { // Default to fade-up with settle effect
+            gsap.set(el, { opacity: 0, y: 30, scale: 0.98, rotate: -1 });
         }
-
         gsap.to(el, animationProps);
     });
 
-    // --- 3. FOOTER DATE & TIME ---
-    // A small detail for a professional touch.
+    // --- 3. MOBILE NAVIGATION TOGGLE ---
+    const navToggle = document.querySelector('.mobile-nav-toggle');
+    const body = document.body;
+
+    navToggle.addEventListener('click', () => {
+        const isOpened = body.classList.toggle('mobile-nav-open');
+        navToggle.setAttribute('aria-expanded', isOpened);
+    });
+
+    // Close menu when a link is clicked
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link, .mobile-resume-link');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            body.classList.remove('mobile-nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // --- 4. FOOTER DATE & TIME ---
     document.getElementById('year').textContent = new Date().getFullYear();
     const timeElement = document.getElementById('current-time');
     
     const updateTime = () => {
-        // Fetches time for Jamshedpur, India (Asia/Kolkata timezone)
         const timeString = new Date().toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit',
-            hour12: false, // Using 24-hour format which is common
+            hour12: false,
             timeZone: 'Asia/Kolkata'
         });
         timeElement.textContent = `| ${timeString}`;
@@ -66,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if(timeElement) {
         updateTime();
-        // Update the time every minute
         setInterval(updateTime, 60000);
     }
 });
