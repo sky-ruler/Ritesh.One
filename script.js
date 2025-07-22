@@ -14,33 +14,28 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', theme);
     });
 
-    // --- 2. GSAP SCROLL-TRIGGERED ANIMATIONS ---
-    gsap.registerPlugin(ScrollTrigger);
+    // --- 2. VANILLA JS SCROLL ANIMATIONS (IntersectionObserver) ---
+    const animatedElements = document.querySelectorAll('[data-anim]');
     
-    const animatedElements = gsap.utils.toArray('[data-anim]');
-    
-    animatedElements.forEach(el => {
-        const delay = parseFloat(el.dataset.delay) || 0;
-        let animationProps = {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotate: 0,
-            delay: delay,
-            duration: 1,
-            ease: 'power4.out',
-            scrollTrigger: {
-                trigger: el,
-                start: 'top 90%',
-                toggleActions: 'play none none reverse',
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add a delay based on the data-delay attribute
+                const delay = parseInt(entry.target.dataset.delay) || 0;
+                setTimeout(() => {
+                    entry.target.classList.add('is-visible');
+                }, delay);
+            } else {
+                // This part ensures the animation can replay if the user scrolls up
+                entry.target.classList.remove('is-visible');
             }
-        };
-        if (el.dataset.anim === 'fade-down') {
-            gsap.set(el, { opacity: 0, y: -30 });
-        } else { // Default to fade-up with settle effect
-            gsap.set(el, { opacity: 0, y: 30, scale: 0.98, rotate: -1 });
-        }
-        gsap.to(el, animationProps);
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    });
+
+    animatedElements.forEach(el => {
+        observer.observe(el);
     });
 
     // --- 3. MOBILE NAVIGATION TOGGLE ---
@@ -49,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navToggle.addEventListener('click', () => {
         const isOpened = body.classList.toggle('mobile-nav-open');
-        navToggle.setAttribute('aria-expanded', isOpened);
+        navToggle.setAttribute('aria-expanded', String(isOpened));
     });
 
     // Close menu when a link is clicked
@@ -77,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if(timeElement) {
         updateTime();
+        // Update the time every minute
         setInterval(updateTime, 60000);
     }
 });
